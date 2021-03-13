@@ -1,3 +1,5 @@
-#api Dependencies
+#api dependencies
 
 ./nodeapi/node_modules
+
+.DS_Store

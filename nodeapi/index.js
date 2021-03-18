@@ -27,8 +27,9 @@ app.use(express.json());
 app.use(cors());
 
 //Routes
-var { postController } = require("./routes");
+var { postController, authController } = require("./routes");
 app.use("/v1", postController);
+app.use("/v1", authController);
 
 var port = process.env.DEV_PORT || 5000;
 app.listen(port, () => {

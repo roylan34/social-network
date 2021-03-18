@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var uuid = require("uuid/v4");
+var uuid = require("uuid");
 var crypto = require("crypto");
 
 var userSchema = mongoose.Schema({
@@ -33,8 +33,8 @@ userSchema
     this._password = password;
 
     //generate timestamp as secret key or create
-    //ur own salt to easily decrypt for future retrieving plain text password
-    this.salt = uuid();
+    //ur create ur own salt for general retrieval of plain text password
+    this.salt = uuid.v4();
 
     //store encrypted password to collection User
     this.hash_password = this.encrpytPassword(password);

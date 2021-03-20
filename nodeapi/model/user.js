@@ -45,6 +45,9 @@ userSchema
 
 //methods
 userSchema.methods = {
+  authenticate: function (password) {
+    return this.hash_password === this.encrpytPassword(password);
+  },
   encrpytPassword: function (password) {
     if (!password) return "";
 

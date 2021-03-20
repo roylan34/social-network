@@ -4,6 +4,7 @@ var morgan = require("morgan");
 var dotEnv = require("dotenv");
 var mongoose = require("mongoose");
 var cors = require("cors");
+var cookieParser = require("cookie-parser");
 
 //Environment variable
 dotEnv.config();
@@ -23,6 +24,8 @@ mongoose
 app.use(morgan("dev"));
 
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.use(cors());
 

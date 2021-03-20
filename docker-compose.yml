@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: ./nodeapi
+      dockerfile: Dockerfile
+    volumes:
+      - ./nodeapi:/app/src #map cwd to docker WORKDIR container defined in Dockerfile
+      - nodemodules:/app/src/node_modules #set volume name and mirror the node_modules to allow changes in container
+    ports:
+      - "5000:5000"
+volumes:
+  nodemodules: {}

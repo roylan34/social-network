@@ -30,9 +30,9 @@ app.use(cookieParser());
 app.use(cors());
 
 //Routes
-var { postController, authController } = require("./routes");
-app.use("/v1", postController);
-app.use("/v1", authController);
+var { postRoutes, authRoutes } = require("./routes");
+app.use("/v1", postRoutes);
+app.use("/v1", authRoutes);
 
 var port = process.env.DEV_PORT || 5000;
 app.listen(port, () => {

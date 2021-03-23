@@ -33,6 +33,11 @@ app.use(cors());
 var { postRoutes, authRoutes } = require("./routes");
 app.use("/v1", postRoutes);
 app.use("/v1", authRoutes);
+app.use((error, req, res, next) => {
+  if (error === "invalidToken") {
+    return res.status(401).json({ error: "unathorized access" });
+  }
+});
 
 var port = process.env.DEV_PORT || 5000;
 app.listen(port, () => {

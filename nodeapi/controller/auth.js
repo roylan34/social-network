@@ -43,3 +43,24 @@ exports.signout = (req, res) => {
   res.clearCookie("t");
   return res.json({ message: "Sign out successfully" });
 };
+exports.requireSignIn = (req, res, next) => {
+  const authBearer = req.headers.authorization;
+
+  if (!authBearer) {
+    return res
+      .status(401)
+      .json({ error: "Authentication error. Token is required" });
+  }
+
+  try {
+    var token = authBearer.split(" ")[1];
+    var result = jwt.verify(token, process.env.JWT_SECRET);
+    // Let's pass back the decoded token to the request object
+    // once success to use the payload data
+    req.decoded = result;
+
+    next();
+  } catch (error) {
+    throw "invalidToken";
+  }
+};

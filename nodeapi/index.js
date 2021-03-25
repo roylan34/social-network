@@ -30,9 +30,10 @@ app.use(cookieParser());
 app.use(cors());
 
 //Routes
-var { postRoutes, authRoutes } = require("./routes");
+var { postRoutes, authRoutes, userRoutes } = require("./routes");
 app.use("/v1", postRoutes);
 app.use("/v1", authRoutes);
+app.use("/v1", userRoutes);
 app.use((error, req, res, next) => {
   if (error === "invalidToken") {
     return res.status(401).json({ error: "unathorized access" });

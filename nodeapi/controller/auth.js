@@ -55,9 +55,9 @@ exports.requireSignIn = (req, res, next) => {
   try {
     var token = authBearer.split(" ")[1];
     var result = jwt.verify(token, process.env.JWT_SECRET);
-    // Let's pass back the decoded token to the request object
+    // Let's pass back the decoded auth token to the request object
     // once success to use the payload data
-    req.decoded = result;
+    req.auth = result;
 
     next();
   } catch (error) {

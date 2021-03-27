@@ -48,3 +48,13 @@ exports.getUser = (req, res) => {
 
   res.send(req.profile);
 };
+
+exports.deleteUser = (req, res) => {
+  const id = req.params.id;
+  userModel.findByIdAndDelete(id, (err, user) => {
+    if (err || !user) {
+      return res.status(400).json({ error: "Id is not exist." });
+    }
+    return res.json({ message: "User successfully deleted" });
+  });
+};

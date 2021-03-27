@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var { ObjectId } = mongoose.Schema.Types;
 
 var postSchema = mongoose.Schema(
   {
@@ -13,6 +14,18 @@ var postSchema = mongoose.Schema(
       required: "Body is required",
       minLength: 3,
       maxLength: 100,
+    },
+    photo: {
+      data: Buffer,
+      contentType: String,
+    },
+    postedBy: {
+      type: ObjectId,
+      ref: "User",
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   { collection: "post" } //force to singular but mongodb by default will add s to become plural

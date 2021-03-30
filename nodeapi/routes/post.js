@@ -1,5 +1,5 @@
 var express = require("express");
-var { getPost, createPost } = require("../controller/post");
+var { getPost, createPost, postedByUser } = require("../controller/post");
 var { post } = require("../validation");
 var { requireSignIn } = require("../controller/auth");
 var { userById } = require("../controller/user");
@@ -13,6 +13,7 @@ router.post(
   createPost,
   post.createValidator
 );
+router.get("/post/by/:userById", requireSignIn, postedByUser);
 
 router.param("userById", userById);
 

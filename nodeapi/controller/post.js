@@ -40,3 +40,16 @@ exports.createPost = (req, res) => {
     });
   });
 };
+
+exports.postedByUser = (req, res) => {
+  PostModel.find({ postedBy: req.profile._id })
+    .populate("postedBy", "_id name")
+    .sort("createdAt")
+    .exec((error, result) => {
+      if (error) {
+        return res.status(400).json({ error });
+      }
+
+      return res.json(result);
+    });
+};

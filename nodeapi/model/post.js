@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-var { ObjectId } = mongoose.Schema.Types;
 
 var postSchema = mongoose.Schema(
   {
@@ -20,8 +19,14 @@ var postSchema = mongoose.Schema(
       contentType: String,
     },
     postedBy: {
-      type: ObjectId,
-      ref: "User",
+      _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users",
+      },
+      name: {
+        type: String,
+        ref: "Users",
+      },
     },
     createdAt: {
       type: Date,

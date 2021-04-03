@@ -19,14 +19,8 @@ var postSchema = mongoose.Schema(
       contentType: String,
     },
     postedBy: {
-      _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Users",
-      },
-      name: {
-        type: String,
-        ref: "Users",
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
     },
     createdAt: {
       type: Date,

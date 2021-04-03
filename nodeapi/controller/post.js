@@ -1,4 +1,5 @@
 var PostModel = require("../model/post");
+var UserModel = require("../model/user");
 var formidable = require("formidable");
 var fs = require("fs");
 
@@ -41,9 +42,9 @@ exports.createPost = (req, res) => {
   });
 };
 
-exports.postedByUser = (req, res) => {
+exports.postsByUser = (req, res) => {
   PostModel.find({ postedBy: req.profile._id })
-    .populate("postedBy", "_id name")
+    .populate("postedBy", "_id name", UserModel)
     .sort("createdAt")
     .exec((error, result) => {
       if (error) {
@@ -52,4 +53,38 @@ exports.postedByUser = (req, res) => {
 
       return res.json(result);
     });
+};
+
+exports.postById = (req, res, next, id) => {
+  PostModel.findById(id)
+    .populate("postedBy", "_id name", UserModel)
+    .exec((error, post) => {
+      if (error || !post) {
+        return res.status(400).json({ error: "Post might not exist" });
+      }
+      req.post = post;
+      next();
+    });
+};
+
+exports.isPoster = (req, res, next) => {
+  const authorized =
+    req.post && req.auth && req.post.postedBy._id == req.auth._id;
+
+  if (!authorized) {
+    return res.status(403).json({
+      error: "User is not allowed to delete this post",
+    });
+  }
+  next();
+};
+
+exports.deletePost = (req, res) => {
+  let post = req.post;
+  post.remove((error, post) => {
+    if (error || !post) {
+      return res.status(400).json({ error: "Cannot delete post" });
+    }
+    return res.json({ message: "Post successfully deleted" });
+  });
 };

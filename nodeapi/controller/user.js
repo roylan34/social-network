@@ -60,3 +60,21 @@ exports.deleteUser = (req, res) => {
     return res.json({ message: "User successfully deleted" });
   });
 };
+
+exports.updateuser = (req, res) => {
+  let user = req.profile;
+  user.name = req.body.name;
+  user.email = req.body.email;
+
+  user.save((error) => {
+    if (error) {
+      return res
+        .status(400)
+        .json({ error: "You are not authorized to update user profile." });
+    }
+    //exclude from response
+    user.salt = undefined;
+    user.hash_password = undefined;
+    return res.json({ message: "Successfully update profile", user });
+  });
+};

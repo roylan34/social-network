@@ -14,8 +14,7 @@ exports.userById = (req, res, next, id) => {
 
 //Check if logging in user is match to header token and others action need to validate
 exports.hasAuthorization = (req, res, next) => {
-  const authorized =
-    req.profile && req.auth && req.profile._id == Stringreq.auth._id;
+  const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
 
   // console.log("req.profile ", req.profile, " req.auth ", req.auth);
   // console.log("req.auth typeof", typeof req.auth._id);

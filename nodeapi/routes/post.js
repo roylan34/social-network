@@ -6,7 +6,6 @@ var {
   postById,
   isPoster,
   deletePost,
-  updatePost,
 } = require("../controller/post");
 var { post } = require("../validation");
 var { requireSignIn } = require("../controller/auth");
@@ -23,7 +22,6 @@ router.post(
 );
 router.get("/post/by/:userId", requireSignIn, postsByUser);
 router.delete("/post/delete/:postId", requireSignIn, isPoster, deletePost);
-router.put("/post/update/:postId", requireSignIn, isPoster, updatePost);
 
 //any route containing :userId the app will execute userById() below.
 router.param("userId", userById);

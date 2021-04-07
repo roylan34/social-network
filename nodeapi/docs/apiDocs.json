@@ -1,0 +1,9 @@
+{
+  "/signup": "create new user",
+  "/signin": "log in user",
+  "/signout": "log out user",
+  "/user": "get all users",
+  "/user/:userId": "get user profile by id",
+  "/user/delete/:id": "delete user",
+  "/user/update/:userId": "update user profile by userId"
+}

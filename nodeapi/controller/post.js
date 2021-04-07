@@ -88,3 +88,19 @@ exports.deletePost = (req, res) => {
     return res.json({ message: "Post successfully deleted" });
   });
 };
+
+exports.updatePost = (req, res) => {
+  let post = req.post;
+  post.title = req.body.title;
+  post.body = req.body.body;
+
+  post.save((error) => {
+    if (error) {
+      return res
+        .status(400)
+        .json({ error: "You are not authorized to update post." });
+    }
+
+    return res.json({ message: "Successfully update your post", post });
+  });
+};
